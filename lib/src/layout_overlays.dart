@@ -160,8 +160,15 @@ class _OverlayBuilderState extends State<OverlayBuilder> {
   }
 
   void addToOverlay(OverlayEntry overlayEntry) async {
-    Overlay.of(ShowCaseWidget.of(context)?.context ?? context)!
-        .insert(overlayEntry);
+    if (ShowCaseWidget.of(context)?.context != null &&
+        Overlay.of(ShowCaseWidget.of(context)!.context) != null) {
+      Overlay.of(ShowCaseWidget.of(context)?.context ?? context)!
+          .insert(overlayEntry);
+    } else {
+      if(Overlay.of(context) != null){
+        Overlay.of(context)!.insert(overlayEntry);
+      }
+    }
   }
 
   void hideOverlay() {
